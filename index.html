@@ -1,288 +1,186 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Coming Soon — Built with FlexOS</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🐱</text></svg>">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-<style>
-:root {
-  --c-bg: #0F1419;
-  --c-s: #171f26;
-  --c-sr: #1c252e;
-  --c-b: #1e2a33;
-  --c-b2: #2a3844;
-  --c-gr: #34d399;
-  --c-gr-lo: rgba(52,211,153,.08);
-  --c-gr-gl: rgba(52,211,153,.20);
-  --c-tx: #eceff4;
-  --c-tx2: #8b99a8;
-  --c-tx3: #4d5f6e;
-  --f-sans: 'Inter', -apple-system, system-ui, sans-serif;
-  --f-mono: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlexLingo - Break Language Barriers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Quicksand:wght@600;700&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --color-primary: oklch(55% 0.15 160);
+      --color-primary-hover: oklch(50% 0.17 160);
+      --color-primary-muted: oklch(55% 0.15 160 / 0.12);
+      --color-bg: oklch(98% 0.01 260);
+      --color-surface: oklch(100% 0 0);
+      --color-border: oklch(90% 0.01 260);
+      --color-text: oklch(20% 0.01 260);
+      --color-text-secondary: oklch(45% 0.01 260);
+      --font-display: 'Quicksand', sans-serif;
+      --font-body: 'Inter', sans-serif;
+      --radius-xl: 1rem;
+      --radius-2xl: 1.5rem;
+      --radius-bubble-sent: 1.25rem 1.25rem 0.25rem 1.25rem;
+      --radius-bubble-recv: 1.25rem 1.25rem 1.25rem 0.25rem;
+      --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.1);
+      --transition-base: 250ms ease-out;
+    }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
+    [data-theme="dark"] {
+      --color-primary: oklch(65% 0.15 160);
+      --color-primary-hover: oklch(70% 0.17 160);
+      --color-primary-muted: oklch(65% 0.15 160 / 0.15);
+      --color-bg: oklch(18% 0.01 260);
+      --color-surface: oklch(22% 0.01 260);
+      --color-border: oklch(35% 0.01 260);
+      --color-text: oklch(95% 0.01 260);
+      --color-text-secondary: oklch(75% 0.01 260);
+      --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 0.3);
+    }
 
-html {
-  background: var(--c-bg);
-  color: var(--c-tx);
-  font-family: var(--f-sans);
-  -webkit-font-smoothing: antialiased;
-}
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--font-body); background: var(--color-bg); color: var(--color-text); line-height: 1.5; transition: background var(--transition-base), color var(--transition-base); }
+    h1, h2, h3 { font-family: var(--font-display); }
+    
+    nav { display: flex; justify-content: space-between; align-items: center; padding: 1.5rem 2rem; max-width: 1200px; margin: 0 auto; }
+    .logo { font-family: var(--font-display); font-weight: 700; font-size: 1.5rem; color: var(--color-primary); display: flex; align-items: center; gap: 0.5rem; }
+    .theme-toggle { background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text); padding: 0.5rem; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; }
 
-body {
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 24px;
-  overflow: hidden;
-}
+    .hero { max-width: 1200px; margin: 4rem auto; padding: 0 2rem; display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: center; }
+    @media (max-width: 768px) { .hero { grid-template-columns: 1fr; text-align: center; margin: 2rem auto; } }
+    
+    .hero-content h1 { font-size: 3.5rem; line-height: 1.1; margin-bottom: 1.5rem; }
+    .hero-content p { font-size: 1.125rem; color: var(--color-text-secondary); margin-bottom: 2rem; }
+    .cta-btn { display: inline-block; background: var(--color-primary); color: white; padding: 1rem 2rem; border-radius: var(--radius-xl); font-weight: 600; text-decoration: none; transition: background var(--transition-base); }
+    .cta-btn:hover { background: var(--color-primary-hover); }
 
-/* Background glow */
-body::before {
-  content: '';
-  position: fixed;
-  top: -40%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 800px;
-  height: 800px;
-  background: radial-gradient(circle, rgba(52,211,153,.06) 0%, transparent 70%);
-  pointer-events: none;
-}
+    /* Interactive Phone Mockup */
+    .phone-mockup { background: var(--color-bg); border: 8px solid var(--color-border); border-radius: 2.5rem; height: 600px; width: 100%; max-width: 320px; margin: 0 auto; position: relative; overflow: hidden; box-shadow: var(--shadow-md); display: flex; flex-direction: column; }
+    .phone-header { padding: 1rem; border-bottom: 1px solid var(--color-border); display: flex; align-items: center; gap: 0.75rem; background: var(--color-surface); }
+    .avatar { width: 40px; height: 40px; background: oklch(70% 0.12 280); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 600; color: white; }
+    .header-text { flex: 1; }
+    .header-name { font-weight: 600; font-size: 0.9rem; }
+    .header-status { font-size: 0.75rem; color: var(--color-primary); }
+    
+    .chat-area { flex: 1; padding: 1rem; overflow-y: auto; display: flex; flex-direction: column; gap: 1.5rem; background: var(--color-bg); }
+    
+    .bubble { max-width: 85%; padding: 0.75rem 1rem; position: relative; font-size: 0.9rem; }
+    .bubble-recv { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-bubble-recv); align-self: flex-start; }
+    .bubble-sent { background: var(--color-primary); color: white; border-radius: var(--radius-bubble-sent); align-self: flex-end; }
+    
+    .msg-flag { position: absolute; top: -10px; font-size: 0.8rem; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: 1rem; padding: 0.1rem 0.4rem; }
+    .bubble-recv .msg-flag { left: 10px; }
+    .bubble-sent .msg-flag { right: 10px; background: var(--color-bg); color: var(--color-text); border: none; }
 
-/* Grid pattern */
-body::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(52,211,153,.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(52,211,153,.03) 1px, transparent 1px);
-  background-size: 60px 60px;
-  pointer-events: none;
-  mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-  -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
-}
+    .msg-content { margin-bottom: 0.75rem; line-height: 1.4; }
 
-.container {
-  position: relative;
-  z-index: 1;
-  text-align: center;
-  max-width: 520px;
-}
+    .flex-tabs { display: flex; gap: 0.25rem; background: rgba(0,0,0,0.05); padding: 0.25rem; border-radius: 1rem; }
+    .bubble-sent .flex-tabs { background: rgba(255,255,255,0.2); }
+    
+    .flex-tab { flex: 1; text-align: center; font-size: 0.65rem; font-weight: 600; padding: 0.25rem; border-radius: 0.75rem; cursor: pointer; transition: background var(--transition-base); opacity: 0.7; }
+    .bubble-recv .flex-tab.active { background: var(--color-primary); color: white; opacity: 1; }
+    .bubble-sent .flex-tab.active { background: white; color: var(--color-primary); opacity: 1; }
+    
+    .phone-input { padding: 1rem; background: var(--color-surface); border-top: 1px solid var(--color-border); display: flex; gap: 0.5rem; }
+    .input-box { flex: 1; background: var(--color-bg); border: 1px solid var(--color-border); border-radius: 1rem; padding: 0.5rem 1rem; font-size: 0.875rem; color: var(--color-text); }
+    .send-btn { width: 36px; height: 36px; background: var(--color-primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; }
 
-/* Flexi avatar */
-.avatar {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-  background: var(--c-gr-lo);
-  border: 2px solid var(--c-gr);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 40px;
-  margin: 0 auto 32px;
-  box-shadow: 0 0 32px var(--c-gr-gl);
-  animation: float 4s ease-in-out infinite;
-}
-
-@keyframes float {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-}
-
-/* Status badge */
-.badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: var(--c-s);
-  border: 1px solid var(--c-b);
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--c-gr);
-  margin-bottom: 24px;
-}
-
-.badge-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--c-gr);
-  animation: pulse 2s ease-in-out infinite;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: .4; }
-  50% { opacity: 1; }
-}
-
-h1 {
-  font-size: clamp(32px, 6vw, 48px);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  line-height: 1.1;
-  margin-bottom: 16px;
-}
-
-h1 span {
-  background: linear-gradient(135deg, var(--c-gr), #60a5fa);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-.subtitle {
-  font-size: 16px;
-  color: var(--c-tx2);
-  line-height: 1.7;
-  margin-bottom: 40px;
-}
-
-/* Progress steps */
-.steps {
-  display: flex;
-  gap: 12px;
-  justify-content: center;
-  margin-bottom: 40px;
-  flex-wrap: wrap;
-}
-
-.step {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 14px;
-  background: var(--c-s);
-  border: 1px solid var(--c-b);
-  border-radius: 10px;
-  font-size: 12px;
-  color: var(--c-tx2);
-}
-
-.step-icon {
-  font-size: 14px;
-}
-
-.step.done .step-icon { color: var(--c-gr); }
-.step.active { border-color: var(--c-b2); color: var(--c-tx); }
-
-/* Powered by */
-.powered {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  font-size: 12px;
-  color: var(--c-tx3);
-  margin-top: 20px;
-}
-
-.powered a {
-  color: var(--c-gr);
-  text-decoration: none;
-  font-weight: 600;
-}
-.powered a:hover {
-  text-decoration: underline;
-}
-
-/* Floating particles */
-.particles {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.particle {
-  position: absolute;
-  width: 4px;
-  height: 4px;
-  background: var(--c-gr);
-  border-radius: 50%;
-  opacity: 0;
-  animation: drift 8s ease-in-out infinite;
-}
-
-.particle:nth-child(1) { left: 15%; top: 20%; animation-delay: 0s; }
-.particle:nth-child(2) { left: 75%; top: 30%; animation-delay: 2s; }
-.particle:nth-child(3) { left: 40%; top: 70%; animation-delay: 4s; }
-.particle:nth-child(4) { left: 85%; top: 60%; animation-delay: 1s; }
-.particle:nth-child(5) { left: 25%; top: 80%; animation-delay: 3s; }
-.particle:nth-child(6) { left: 60%; top: 15%; animation-delay: 5s; }
-
-@keyframes drift {
-  0% { opacity: 0; transform: translateY(0) scale(0.5); }
-  20% { opacity: 0.3; }
-  80% { opacity: 0.3; }
-  100% { opacity: 0; transform: translateY(-40px) scale(1); }
-}
-
-@media (max-width: 480px) {
-  .steps { flex-direction: column; align-items: center; }
-  .avatar { width: 64px; height: 64px; font-size: 32px; margin-bottom: 24px; }
-}
-</style>
+  </style>
 </head>
 <body>
 
-<div class="particles">
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-  <div class="particle"></div>
-</div>
+  <nav>
+    <div class="logo">🌍 FlexLingo</div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle Theme">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+    </button>
+  </nav>
 
-<div class="container">
-  <div class="avatar">🐱</div>
-
-  <div class="badge">
-    <span class="badge-dot"></span>
-    Building with AI
-  </div>
-
-  <h1>Something <span>amazing</span> is coming</h1>
-
-  <p class="subtitle">
-    This project is being built by Flexi, your AI co-founder.
-    Specs, design, and code — all generated from a single idea.
-  </p>
-
-  <div class="steps">
-    <div class="step done">
-      <span class="step-icon">✓</span>
-      Repository
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Chat in any language.<br><span style="color: var(--color-primary)">Learn while you talk.</span></h1>
+      <p>FlexLingo instantly translates your conversations in real-time. Chat with friends or AI partners—every message is translated, grammar-corrected, and spoken aloud so you learn naturally.</p>
+      <a href="#" class="cta-btn">Start Chatting Free</a>
     </div>
-    <div class="step done">
-      <span class="step-icon">✓</span>
-      Hosting
-    </div>
-    <div class="step active">
-      <span class="step-icon">◎</span>
-      Building
-    </div>
-    <div class="step">
-      <span class="step-icon">○</span>
-      Launch
-    </div>
-  </div>
 
-  <div class="powered">
-    <span>🐱</span>
-    Built with <a href="https://flexos.dev" target="_blank">FlexOS</a>
-  </div>
-</div>
+    <div class="phone-mockup">
+      <div class="phone-header">
+        <div class="avatar">M</div>
+        <div class="header-text">
+          <div class="header-name">Mathieu (AI Tutor)</div>
+          <div class="header-status">Online</div>
+        </div>
+      </div>
 
+      <div class="chat-area">
+        <!-- Received Message -->
+        <div class="bubble bubble-recv">
+          <div class="msg-flag">🇫🇷 FR</div>
+          <div class="msg-content" id="recv-content">What do you want to order today?</div>
+          <div class="flex-tabs">
+            <div class="flex-tab" onclick="switchTab('recv', 'Original', 'Qu\'est-ce que tu veux commander aujourd\'hui ?')">Original</div>
+            <div class="flex-tab" onclick="switchTab('recv', 'Cleaned', 'Que souhaitez-vous commander aujourd\'hui ?')">Cleaned</div>
+            <div class="flex-tab active" onclick="switchTab('recv', 'Translated', 'What do you want to order today?')">Translated</div>
+          </div>
+        </div>
+
+        <!-- Sent Message -->
+        <div class="bubble bubble-sent">
+          <div class="msg-flag">🇪🇸 ES</div>
+          <div class="msg-content" id="sent-content">Yo un café por favor.</div>
+          <div class="flex-tabs">
+            <div class="flex-tab active" onclick="switchTab('sent', 'Original', 'Yo un café por favor.')">Original</div>
+            <div class="flex-tab" onclick="switchTab('sent', 'Cleaned', 'Yo quiero un café, por favor.')">Cleaned</div>
+            <div class="flex-tab" onclick="switchTab('sent', 'Translated', 'I want a coffee, please.')">Translated</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="phone-input">
+        <div class="input-box">Type a message...</div>
+        <div class="send-btn">↑</div>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    // Theme Toggle Logic
+    const toggleBtn = document.getElementById('themeToggle');
+    const html = document.documentElement;
+    
+    // Check local storage or system preference
+    if (localStorage.getItem('theme') === 'light' || (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: light)').matches)) {
+      html.setAttribute('data-theme', 'light');
+    }
+
+    toggleBtn.addEventListener('click', () => {
+      const currentTheme = html.getAttribute('data-theme');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      html.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+
+    // Chat Tab Switching Logic
+    function switchTab(bubbleId, tabName, newText) {
+      const bubble = document.querySelector(`.bubble-${bubbleId}`);
+      const contentDiv = document.getElementById(`${bubbleId}-content`);
+      const tabs = bubble.querySelectorAll('.flex-tab');
+      
+      // Update text
+      contentDiv.style.opacity = '0';
+      setTimeout(() => {
+        contentDiv.innerText = newText;
+        contentDiv.style.opacity = '1';
+      }, 150);
+
+      // Update active tab styling
+      tabs.forEach(tab => {
+        if(tab.innerText === tabName) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+    }
+  </script>
 </body>
 </html>
