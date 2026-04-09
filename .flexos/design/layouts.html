@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlexLingo — Layouts</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root[data-theme="light"] {
+  --color-primary: oklch(55% 0.15 160);
+  --color-primary-hover: oklch(50% 0.17 160);
+  --color-primary-subtle: oklch(55% 0.15 160 / 0.12);
+  --color-primary-contrast: oklch(100% 0 0);
+  --color-accent: oklch(55% 0.15 280);
+  --color-accent-hover: oklch(50% 0.15 280);
+  --color-accent-subtle: oklch(55% 0.15 280 / 0.1);
+  --color-bg: oklch(98% 0.01 260);
+  --color-surface: oklch(100% 0 0);
+  --color-surface-raised: oklch(96% 0.01 260);
+  --color-surface-sunken: oklch(94% 0.01 260);
+  --color-overlay: oklch(0% 0 0 / 0.5);
+  --color-border: oklch(90% 0.01 260);
+  --color-border-strong: oklch(80% 0.01 260);
+  --color-border-focus: var(--color-primary);
+  --color-text: oklch(20% 0.01 260);
+  --color-text-muted: oklch(45% 0.01 260);
+  --color-text-placeholder: oklch(65% 0.01 260);
+  --color-text-disabled: oklch(75% 0.01 260);
+  --color-text-on-primary: var(--color-primary-contrast);
+  --color-success: oklch(55% 0.15 160);
+  --color-success-subtle: oklch(92% 0.05 160);
+  --color-warning: oklch(65% 0.15 45);
+  --color-warning-subtle: oklch(96% 0.05 45);
+  --color-danger: oklch(55% 0.18 20);
+  --color-danger-subtle: oklch(95% 0.05 20);
+  --color-info: oklch(60% 0.15 240);
+  --color-info-subtle: oklch(94% 0.05 240);
+}
+:root[data-theme="dark"] {
+  --color-primary: oklch(65% 0.15 160);
+  --color-primary-hover: oklch(70% 0.17 160);
+  --color-primary-subtle: oklch(65% 0.15 160 / 0.15);
+  --color-primary-contrast: oklch(15% 0.01 260);
+  --color-accent: oklch(70% 0.12 280);
+  --color-accent-hover: oklch(75% 0.12 280);
+  --color-accent-subtle: oklch(70% 0.12 280 / 0.15);
+  --color-bg: oklch(18% 0.01 260);
+  --color-surface: oklch(22% 0.01 260);
+  --color-surface-raised: oklch(28% 0.01 260);
+  --color-surface-sunken: oklch(15% 0.01 260);
+  --color-overlay: oklch(0% 0 0 / 0.65);
+  --color-border: oklch(35% 0.01 260);
+  --color-border-strong: oklch(45% 0.01 260);
+  --color-border-focus: var(--color-primary);
+  --color-text: oklch(95% 0.01 260);
+  --color-text-muted: oklch(75% 0.01 260);
+  --color-text-placeholder: oklch(55% 0.01 260);
+  --color-text-disabled: oklch(45% 0.01 260);
+  --color-text-on-primary: var(--color-primary-contrast);
+  --color-success: oklch(65% 0.15 160);
+  --color-success-subtle: oklch(25% 0.06 160);
+  --color-warning: oklch(75% 0.15 45);
+  --color-warning-subtle: oklch(30% 0.06 45);
+  --color-danger: oklch(60% 0.18 20);
+  --color-danger-subtle: oklch(28% 0.08 20);
+  --color-info: oklch(70% 0.12 240);
+  --color-info-subtle: oklch(28% 0.06 240);
+}
+:root {
+  --font-display: 'Quicksand', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --transition-base: 250ms ease-out;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-body);
+  transition: background var(--transition-base), color var(--transition-base);
+}
+.page { max-width: 1200px; margin: 0 auto; padding: 48px 32px 120px; }
+.page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 64px; padding-bottom: 24px; border-bottom: 2px solid var(--color-border); }
+.page-title { font-family: var(--font-display); font-size: 2.5rem; font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; }
+.page-sub { color: var(--color-text-muted); font-size: 0.875rem; margin-top: 6px; }
+.theme-btn { position: fixed; top: 24px; right: 24px; background: var(--color-surface); border: 1px solid var(--color-border); color: var(--color-text); width: 40px; height: 40px; border-radius: 50%; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all var(--transition-base); z-index: 1000; }
+.theme-btn:hover { background: var(--color-surface-raised); transform: scale(1.1); }
+
+.layout-card {
+  background: var(--color-surface-sunken);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-8);
+}
+.layout-header {
+  padding: var(--space-4) var(--space-6);
+  border-bottom: 1px solid var(--color-border);
+}
+.layout-id {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-1);
+}
+.layout-name {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+.layout-rule {
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    margin-top: var(--space-1);
+    font-family: var(--font-mono);
+}
+.layout-previews {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-8);
+  padding: var(--space-6);
+  align-items: flex-start;
+}
+.viewport { display: flex; flex-direction: column; align-items: center; gap: var(--space-3); }
+.viewport-label { font-family: var(--font-mono); font-size: 0.75rem; color: var(--color-text-muted); }
+.viewport svg {
+    background: var(--color-surface);
+    border: 1.5px solid var(--color-border);
+    border-radius: var(--radius-lg);
+}
+.svg-text { font-family: var(--font-mono); font-size: 9px; fill: var(--color-text-muted); text-anchor: middle; dominant-baseline: middle; }
+.svg-text-strong { font-weight: 600; fill: var(--color-text); }
+</style>
+</head>
+<body>
+
+<button class="theme-btn" id="themeBtn" title="Toggle Theme">
+  <svg id="theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+  <svg id="theme-icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+</button>
+
+<div class="page">
+  <div class="page-header">
+    <div>
+      <div class="page-title">FlexLingo</div>
+      <div class="page-sub">Layout Blueprints</div>
+    </div>
+  </div>
+
+  <!-- L-001: Chat List View -->
+  <div class="layout-card">
+    <div class="layout-header">
+      <div class="layout-id">L-001</div>
+      <div class="layout-name">Chat List View</div>
+      <div class="layout-rule">Desktop: 280px fixed sidebar, main scrolls. Mobile: Full screen list, 64px fixed bottom nav.</div>
+    </div>
+    <div class="layout-previews">
+        <div class="viewport">
+            <div class="viewport-label">Desktop</div>
+            <svg width="400" height="260" viewBox="0 0 400 260">
+                <rect x="0" y="0" width="280" height="260" fill="var(--color-surface-raised)" />
+                <rect x="0" y="0" width="400" height="50" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="50" x2="400" y2="50" stroke="var(--color-border)" stroke-width="1.5" />
+                <line x1="280" y1="0" x2="280" y2="260" stroke="var(--color-border)" stroke-width="1.5" />
+                <text x="140" y="25" class="svg-text svg-text-strong">Sidebar (280px)</text>
+                <text x="340" y="25" class="svg-text svg-text-strong">Main Header</text>
+                <text x="340" y="155" class="svg-text">Chat List (Scrolls)</text>
+            </svg>
+        </div>
+        <div class="viewport">
+            <div class="viewport-label">Mobile</div>
+            <svg width="180" height="320" viewBox="0 0 180 320">
+                <rect x="0" y="0" width="180" height="50" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="50" x2="180" y2="50" stroke="var(--color-border)" stroke-width="1.5" />
+                <rect x="0" y="256" width="180" height="64" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="256" x2="180" y2="256" stroke="var(--color-border)" stroke-width="1.5" />
+                <text x="90" y="25" class="svg-text svg-text-strong">Header</text>
+                <text x="90" y="153" class="svg-text">Chat List (Scrolls)</text>
+                <text x="90" y="288" class="svg-text svg-text-strong">Bottom Nav (64px)</text>
+            </svg>
+        </div>
+    </div>
+  </div>
+
+  <!-- L-002: Universal Chat View -->
+  <div class="layout-card">
+    <div class="layout-header">
+      <div class="layout-id">L-002</div>
+      <div class="layout-name">Universal Chat View</div>
+      <div class="layout-rule">Desktop: 3-column with fixed contact info. Mobile: Header + scrolling messages + fixed input.</div>
+    </div>
+    <div class="layout-previews">
+        <div class="viewport">
+            <div class="viewport-label">Desktop</div>
+            <svg width="400" height="260" viewBox="0 0 400 260">
+                <rect x="0" y="0" width="240" height="260" fill="var(--color-surface-raised)" />
+                <rect x="240" y="0" width="160" height="260" fill="var(--color-surface-raised)" />
+                <line x1="240" y1="0" x2="240" y2="260" stroke="var(--color-border)" stroke-width="1.5" />
+                <rect x="0" y="0" width="400" height="50" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="50" x2="400" y2="50" stroke="var(--color-border)" stroke-width="1.5" />
+                <rect x="0" y="200" width="240" height="60" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="200" x2="240" y2="200" stroke="var(--color-border)" stroke-width="1.5" />
+                <text x="120" y="25" class="svg-text svg-text-strong">Chat Header</text>
+                <text x="120" y="125" class="svg-text">Messages (Scrolls)</text>
+                <text x="120" y="230" class="svg-text">Input</text>
+                <text x="320" y="130" class="svg-text">Contact Info</text>
+            </svg>
+        </div>
+        <div class="viewport">
+            <div class="viewport-label">Mobile</div>
+            <svg width="180" height="320" viewBox="0 0 180 320">
+                <rect x="0" y="0" width="180" height="50" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="50" x2="180" y2="50" stroke="var(--color-border)" stroke-width="1.5" />
+                <rect x="0" y="260" width="180" height="60" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="260" x2="180" y2="260" stroke="var(--color-border)" stroke-width="1.5" />
+                <text x="90" y="25" class="svg-text svg-text-strong">Chat Header</text>
+                <text x="90" y="155" class="svg-text">Messages (Scrolls)</text>
+                <text x="90" y="290" class="svg-text">Input</text>
+            </svg>
+        </div>
+    </div>
+  </div>
+
+  <!-- L-003: Language Tutor View -->
+  <div class="layout-card">
+    <div class="layout-header">
+      <div class="layout-id">L-003</div>
+      <div class="layout-name">Language Tutor View</div>
+      <div class="layout-rule">Desktop: 50/50 split pane for Chat and Notebook. Mobile: Tabbable interface.</div>
+    </div>
+    <div class="layout-previews">
+        <div class="viewport">
+            <div class="viewport-label">Desktop</div>
+            <svg width="400" height="260" viewBox="0 0 400 260">
+                <rect x="0" y="0" width="200" height="260" fill="var(--color-surface-raised)" />
+                <line x1="200" y1="0" x2="200" y2="260" stroke="var(--color-border)" stroke-width="1.5" />
+                <rect x="0" y="0" width="400" height="50" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="50" x2="400" y2="50" stroke="var(--color-border)" stroke-width="1.5" />
+                <text x="200" y="25" class="svg-text svg-text-strong">Tutor / Notebook</text>
+                <text x="100" y="155" class="svg-text">Tutor Chat</text>
+                <text x="300" y="155" class="svg-text">Notebook</text>
+            </svg>
+        </div>
+        <div class="viewport">
+            <div class="viewport-label">Mobile</div>
+            <svg width="180" height="320" viewBox="0 0 180 320">
+                <rect x="0" y="0" width="180" height="50" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="50" x2="180" y2="50" stroke="var(--color-border)" stroke-width="1.5" />
+                <rect x="0" y="50" width="180" height="40" fill="var(--color-surface-raised)" />
+                 <rect x="10" y="60" width="80" height="20" fill="var(--color-primary-subtle)" rx="10"/>
+                <line x1="0" y1="90" x2="180" y2="90" stroke="var(--color-border)" stroke-width="1.5" />
+                <rect x="0" y="256" width="180" height="64" fill="var(--color-surface-raised)" />
+                <line x1="0" y1="256" x2="180" y2="256" stroke="var(--color-border)" stroke-width="1.5" />
+                <text x="90" y="25" class="svg-text svg-text-strong">Tutor</text>
+                <text x="50" y="70" class="svg-text svg-text-strong">Chat</text>
+                <text x="130" y="70" class="svg-text">Notebook</text>
+                <text x="90" y="173" class="svg-text">Content</text>
+                <text x="90" y="288" class="svg-text svg-text-strong">Bottom Nav</text>
+            </svg>
+        </div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const btn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+  const lightIcon = document.getElementById('theme-icon-light');
+  const darkIcon = document.getElementById('theme-icon-dark');
+
+  const setIcon = (theme) => {
+    if (theme === 'light') {
+      lightIcon.style.display = 'block';
+      darkIcon.style.display = 'none';
+    } else {
+      lightIcon.style.display = 'none';
+      darkIcon.style.display = 'block';
+    }
+  };
+
+  const currentTheme = localStorage.getItem('theme') || 'dark';
+  html.dataset.theme = currentTheme;
+  setIcon(currentTheme);
+
+  btn.addEventListener('click', () => {
+    const next = html.dataset.theme === 'light' ? 'dark' : 'light';
+    html.dataset.theme = next;
+    localStorage.setItem('theme', next);
+    setIcon(next);
+  });
+</script>
+
+</body>
+</html>
